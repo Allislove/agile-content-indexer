@@ -5,7 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -24,21 +24,54 @@ func ContentIndexer(message string) string {
 
 // Pushing data to zin
 func PushData(message string) string {
-	f, err := os.Open("enron_mail_20110402")
+
+	DATA := `{
+		"nombre": "Andres",
+		"lastName": "Romaña"
+	}`
+
+	type Element struct {
+		Name  string `json:"name"`
+		Value string `json:"value"`
+	}
+
+	/*data := `Message-ID: = "<>"
+	Date: = ""
+	From: = ""
+	To: = ""
+	Subject: = ""
+	Version: = ""
+	Content-Type: = ""
+	Content-Transfer-Encoding: = ""
+	X-From: = ""
+	X-To: = ""
+	X-cc: = ""
+	X-bcc: = ""
+	X-Folder: = ""
+	X-Origin: = ""
+	X-FileName: = ""
+	`
+
+	SliceDATA := make([]Element, 0, 4)
+	lines := strings.Split(data, "\n")
+	for _, line := range lines {
+		keyVal := strings.Split(line, "=")
+		SliceDATA = append(SliceDATA, Element{Name: keyVal[0], Value: keyVal[1]})
+		// SliceDATA[keyVal[0]] = keyVal[1] // creamos k:value pair json
+	}
+	byData, err := json.Marshal(SliceDATA)
 	if err != nil {
 		panic(err)
 	}
-	defer f.Close()
+	fmt.Printf("%s", byData) */
 
-	file, err := os.Open("../enron_mail_20110402")
-	fmt.Println(file, "********FILE")
-	// data := "../enron_mail_20110402"
+	// req, err := http.NewRequest("POST", "http://localhost:4080/api/clients/_doc", bytes.NewReader([]byte(byData)))
+	req, err := http.NewRequest("POST", "http://localhost:4080/api/clients/_doc", strings.NewReader(DATA))
 
-	req, err := http.NewRequest("POST", "http://localhost:4080/api/clients/_multi", io.MultiReader(f))
 	if err != nil {
 		log.Fatal(err)
 	}
-	req.SetBasicAuth("admin", "Complexpass#900")
+	req.SetBasicAuth("admin", "Complexpass#123")
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36")
 

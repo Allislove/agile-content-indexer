@@ -10,6 +10,7 @@ import (
 func main() {
 	fmt.Println("Agile content indexer -")
 	//fmt.Println(content.ContentIndexer("Hello T "))
-	fmt.Println(content.PushData("**PASSED**"))
+
+	fmt.Println(content.PushData("PASSED****"))
 
 }
