@@ -1,6 +1,6 @@
 # agile-content-indexer
 
-** To run this, you need to get install GO Programming Language.**
+> NOTE: To run this, you need to get install GO Programming Language.
 
 - Firt do ( in Linux OS, or WSL in Windows )
     ```git clone https://github.com/Allislove/agile-content-indexer.git ```
